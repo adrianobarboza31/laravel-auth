@@ -10,8 +10,10 @@
                 @method('DELETE')
                 <button type="submit" class="delete-button btn btn-danger ms-3" data-item-title="{{$project->nome_progetto}}"><i class="fa-solid fa-trash-can"></i></button>
              </form>
+            </td>
              <p><a href="{{ route('admin.projects.edit',$project->id) }}">modifica</a></p>
             @endforeach
         </div>
     </div>
+    @include('profile.partials.admin.modal-delete')
 @endsection
