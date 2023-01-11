@@ -9,5 +9,5 @@ use Illuminate\Support\Str;
 class project extends Model
 {
     use HasFactory;
-    protected $fillable = ['nome_progetto'];
+    protected $fillable = ['nome_progetto','cover_image'];
 }

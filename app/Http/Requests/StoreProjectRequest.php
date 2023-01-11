@@ -24,7 +24,8 @@ class StoreProjectRequest extends FormRequest
     public function rules()
     {
         return [
-            'nome_progetto'=>'required|unique:projects|max:150|min:4'
+            'nome_progetto'=>'required|unique:projects|max:150|min:4',
+            'cover_image'=>'nullable|image|max: 250'
         ];
     }
     public function messages(){
