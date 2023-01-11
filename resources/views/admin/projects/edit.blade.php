@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
   <h1>compila per aggiungere</h1>
-  <form action="{{ route('admin.projects.update',$project->id) }}" method="POST">
+  <form action="{{ route('admin.projects.update',$project->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
 @method('PUT')
     <label for="nome_progetto">nome_progetto</label>
