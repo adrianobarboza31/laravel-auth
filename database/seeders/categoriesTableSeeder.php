@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\categories;
+
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\categories;
 
 class categoriesTableSeeder extends Seeder
 {
@@ -17,7 +18,7 @@ class categoriesTableSeeder extends Seeder
     {
         $categories = ['Html', 'Css', 'JavaScript', 'php', 'VUE', 'laravel'];
         foreach($categories as $category){
-            $newCategory = new categories;
+            $newCategory = new categories();
             $newCategory->nome_categoria = $category;
             $newCategory->save();
         }

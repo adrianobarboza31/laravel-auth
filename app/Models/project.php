@@ -5,9 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class project extends Model
 {
     use HasFactory;
-    protected $fillable = ['nome_progetto','cover_image'];
+    protected $fillable = ['nome_progetto','cover_image','user_id','category_id'];
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+
+    }
+
+    public function category():BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

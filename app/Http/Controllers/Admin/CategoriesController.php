@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
@@ -14,7 +15,8 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        return view('admin.categories.index', compact('Category'));
     }
 
     /**
@@ -24,7 +26,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**
@@ -35,18 +37,20 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validated();
+        $new_category = Category::create($data);
+        return redirect()->route('admin.categories.show', $new_category->id);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+    
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        //
+        return view('admin.categories.show', compact('category'));
     }
 
     /**
@@ -55,9 +59,9 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -67,9 +71,11 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $data = $request->validated();
+        $category->update($data);
+        return redirect()->route('admin.categories.index',$category->id);
     }
 
     /**
@@ -78,8 +84,9 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $categories)
     {
-        //
+        $categories->delete();
+        return redirect()->route('admin.categories.index')->with('message', "$categories->nome_categoria deleted successfully");
     }
 }
