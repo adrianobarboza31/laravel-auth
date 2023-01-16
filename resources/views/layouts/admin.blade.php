@@ -21,10 +21,10 @@
 
 <body>
  <div id="admin">
-    @include('partials.sidebar')
+    @include('partials.admin.sidebar')
 
     <div id="wrapper">
-        @include('partials.header')
+        @include('partials.admin.header')
 
         <main class="mt-4 container-fluid">
             @yield('content')

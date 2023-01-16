@@ -7,7 +7,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\project;
 use App\Models\Category;
-use app\Models\Technology;
+use App\Models\Technology;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -32,8 +32,8 @@ class ProjectController extends Controller
     public function create()
     {
         $categories = Category::all();
-        $technology = Technology::all();
-        return view('admin.projects.create',compact('categories','technology'));
+        $technologies = Technology::all();
+        return view('admin.projects.create',compact('categories','technologies'));
     }
 
     /**
@@ -53,6 +53,9 @@ class ProjectController extends Controller
         }
 
         $newProject = project::create($data);
+        if($request->has('nome_technology')){
+            $newProject->technologies()->sync($request->nome_technology);
+        }
          return redirect()->route('admin.projects.show', $newProject->id);
     }
 
@@ -60,7 +63,7 @@ class ProjectController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response 
      */
     public function show(project $project)
     {
@@ -76,8 +79,8 @@ class ProjectController extends Controller
     public function edit(project $project)
     {
         $categories = Category::all();
-        $technology = Technology::all();
-        return view('admin.projects.edit', compact('project','categories','technology'));
+        $technologies = Technology::all();
+        return view('admin.projects.edit', compact('project','categories','technologies'));
     }
 
     /**
@@ -98,6 +101,9 @@ class ProjectController extends Controller
             $data['cover_image'] = $img_path;
         }
         $project->update($data);
+        if ($request->has('technologies')) {
+            $project->technologies()->sync($request->technologies);
+        }
         return redirect()->route('admin.projects.show', $project->id);
     }
 
